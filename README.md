@@ -1,2 +1,5 @@
 # Reto_LiveChallenge
-Solución al Reto LiveChallenge de Daniel Primo
+
+## Uso la función fetch. 
+Si se abre el archivo html directamente no funcionará.
+Usar un servidor virtual tipo LiveServer de VScode.
