@@ -16,7 +16,7 @@
 <div class="container-fluid text-center">
       <div class="jumbotron jumbotron-fluid">
             <div class="container">
-              <h1 id="message" class="display-4">Este Jotason se trasnformará en... </h1>
+              <h1 id="message" class="display-4">Este Jotason se transformará en... </h1>
             <h2 id="html"></h2> 
           </div>
       </div>
@@ -102,7 +102,6 @@ const countdown = ( deadline, elem, finalMessage ) => {
         let t = getTime(deadline);
         el.innerHTML = `${t.remainSeconds}`;      
         if( t.remainTime <= 1 ) {
-            clearInterval(timerUpdate);
             el.innerHTML = finalMessage;
             confetti.start();
         }
