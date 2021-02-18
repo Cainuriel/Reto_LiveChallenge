@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js/confetti.min.js"></script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/darkly/bootstrap.min.css">
+
+<link rel="stylesheet" href="style.css">
+<title>Daniel Primo</title>
+</head>
+
+<body>
+
+<div class="container-fluid text-center">
+      <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+              <h1 id="message" class="display-4">Este Jotason se trasnformará en... </h1>
+            <h2 id="html"></h2> 
+          </div>
+      </div>
+    <div class="jumbotron">
+    <h1 class="display-4">CUENTA ATRÁS</h1>
+      <div id="clock">20</div>
+    </div>
+</div>
+
+
+<script>
+
+  // childrens count function
+      function countProperties(childrens) {
+      var count = 0;
+
+      for(var prop in childrens) {
+          if(childrens.hasOwnProperty(prop))
+              ++count;
+      }
+
+      return count;
+  }
+
+    // Creator of labels li 
+  function li_LabelGenerator(number, childrens) {
+  var string = '';
+  for (var i = 0; i < number; i++) {
+      string += " <li>" + childrens[i].text + "</li> ";
+  }
+  //console.log(string);
+  return string
+
+  }
+
+
+// import of JSON
+fetch('jotason.json')
+  .then(response => response.json())
+  .then(data => {
+        // original json
+        document.getElementById("html").innerHTML = JSON.stringify(data);
+        setTimeout(function () {
+        
+        // tachan!!!
+        document.getElementById("html").innerHTML = ul + li + ul_close;
+         document.getElementById("message").innerHTML = '¡Una lista html!!';
+        }, 20000);
+
+        // label ul
+        const ul = "<" + data.tree.tag + ">";
+        const ul_close = "</" + data.tree.tag + ">";
+
+        //labels li
+        const childrens = data.tree.children;
+
+        // number of li's
+        const number = countProperties(childrens);
+
+        li = li_LabelGenerator(number, childrens);
+  });
+
+</script>
+
+
+<!-- countdown 20 seconds -->
+<script>
+
+// seconds generator
+const getTime = deadline => {
+  let now = new Date().getTime(),
+      remainTime = ( new Date(deadline) - now + 1000 ) / 1000,
+      remainSeconds = ( '0' + Math.floor( remainTime % 60)).slice( -2 )
+  return {
+    remainTime,
+    remainSeconds
+  }
+};
+
+const countdown = ( deadline, elem, finalMessage ) => {
+  const el = document.getElementById(elem);
+  const timerUpdate = setInterval( () => {
+        let t = getTime(deadline);
+        el.innerHTML = `${t.remainSeconds}`;      
+        if( t.remainTime <= 1 ) {
+            clearInterval(timerUpdate);
+            el.innerHTML = finalMessage;
+            confetti.start();
+        }
+    }, 1000 )
+};
+
+countdown((Date.now()+20000), 'clock', '¡FIESTA!');
+
+</script>
+</body>
+</html>
+
+
